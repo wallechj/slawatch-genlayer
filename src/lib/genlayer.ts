@@ -109,6 +109,38 @@ export async function readSLAWatch<T>(
   return result as T;
 }
 
+async function ensureWalletChain(network: NetworkKey): Promise<void> {
+  const provider = getEthereumProvider();
+  if (!provider) return;
+  const chain = resolveChain(network);
+  const chainIdHex = `0x${chain.id.toString(16)}`;
+  const currentChainId = (await provider.request({ method: "eth_chainId" })) as string;
+  if (currentChainId?.toLowerCase() === chainIdHex.toLowerCase()) return;
+  try {
+    await provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: chainIdHex }],
+    });
+  } catch (err) {
+    const code = (err as { code?: number })?.code;
+    if (code === 4902) {
+      await provider.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: chainIdHex,
+            chainName: chain.name,
+            rpcUrls: chain.rpcUrls.default.http,
+            nativeCurrency: chain.nativeCurrency,
+          },
+        ],
+      });
+    } else {
+      throw err;
+    }
+  }
+}
+
 export async function writeSLAWatch(params: {
   network: NetworkKey;
   contractAddress: `0x${string}`;
@@ -127,6 +159,9 @@ export async function writeSLAWatch(params: {
   });
 
   const client = getWriteClient(network, account);
+
+  // Ensure injected EVM wallet is switched to the selected GenLayer chain before signing
+  await ensureWalletChain(network);
 
   let fees: { distribution: unknown; feeValue: bigint } | undefined;
   try {

@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: "SLAWatch — Trustless Uptime SLA Adjudicator on GenLayer",
   description:
     "Neutral multi-validator SLA breach adjudication powered by GenLayer Intelligent Contracts and live Atlassian Statuspage v2 evidence.",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
