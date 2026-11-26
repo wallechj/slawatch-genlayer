@@ -74,13 +74,13 @@ After adjudication finalizes, click "View Receipt" to inspect the immutable on-c
 ## 06 审核验证
 - **预期验证结果（<= 500 字符）**：
 ```text
-1) Live Statuspage Inspector returns live JSON observations and a 64-char SHA-256 evidence_digest matching the Python contract normalizer. 2) Registering an agreement and opening a claim transitions on-chain state to SLA-0001 and CLM-0001. 3) adjudicate_claim() finalizes with BREACH_CONFIRMED, NO_BREACH, or fail-closed REVIEW_NEEDED and stores an auditable receipt via get_receipt(). 4) Offline pytest suite (tests/test_sla_watch.py) passes 100%.
+1) Opening the site auto-loads live StudioNet state (SLA-0001 and CLM-0001) from 0x6b908b62Ee9D06a62ce063b3880B2E16eD424b36 with finalized NO_BREACH receipt RCPT-CLM-0001 (viewable via "View Receipt" without a wallet). 2) Live Statuspage Inspector fetches official Statuspage v2 JSON and outputs a 64-char SHA-256 digest matching contracts/sla_watch.py. 3) Wallet users can register agreements, open claims, and run adjudicate_claim() with full tx lifecycle tracking. 4) Offline tests pass 11/11.
 ```
-- **合约链接 1（可选）**：将 `contracts/sla_watch.py` 部署到 StudioNet / Testnet Bradbury 后，填入浏览器合约 URL。
+- **合约链接 1（可选）**：`https://genlayer-explorer.vercel.app/address/0x6b908b62Ee9D06a62ce063b3880B2E16eD424b36`
 
 ---
 
 ## 07 项目链接 & 证明材料
-- **网站（必填）**：你的 Vercel 部署地址（例如 `https://slawatch-genlayer.vercel.app`）
-- **GITHUB**：你的公开 GitHub 仓库地址（例如 `https://github.com/<your-username>/slawatch-genlayer`）
-- **证明材料（必填 GitHub Repository）**：粘贴同一个 GitHub 仓库地址并点击添加。
+- **网站（必填）**：`https://slawatch-genlayer.vercel.app`
+- **GITHUB**：`https://github.com/wallechj/slawatch-genlayer`
+- **证明材料（必填 GitHub Repository）**：`https://github.com/wallechj/slawatch-genlayer`
