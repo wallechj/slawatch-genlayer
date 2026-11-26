@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import {
   connectWallet,
+  formatError,
   isValidContractAddress,
   NETWORK_OPTIONS,
   NetworkKey,
@@ -162,7 +163,7 @@ export default function SLAWatchPage() {
       setTxState({
         stage: "error",
         action: actionLabel,
-        message: err instanceof Error ? err.message : "Transaction failed.",
+        message: formatError(err, "Transaction failed."),
       });
     }
   }
